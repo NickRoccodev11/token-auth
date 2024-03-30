@@ -40,9 +40,8 @@ const Authenticate = ({ token, setError, setToken, setUser, setPassword }) => {
           welcome.success ?
             <div className="validate">
               <h1 className="header">Welcome back, {welcome.data.username}!</h1>
-              <button onClick={() => handleClick()}>Take me home </button>
+              <button>Homepage Loading... </button>
               <p>{welcome.message}</p>
-              <p>Home Page Loading...</p>
             </div> :
             <div className="validate">
               <h1 className="header">Is that you?</h1>
