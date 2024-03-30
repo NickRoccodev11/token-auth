@@ -5,8 +5,9 @@ import { useState } from "react"
 //components
 import Homepage from "./Homepage"
 
-const Authenticate = ({ token, user, setError, setToken, setUser, setPassword }) => {
+const Authenticate = ({ token, setError, setToken, setUser, setPassword }) => {
   const [isSignedIn, setIsSignedIn] = useState(false)
+  const [welcome, setWelcome] = useState({})
   const handleClick = async () => {
     const res = await fetch(`${BASE_URL}/authenticate`, {
       method: "GET",
@@ -15,9 +16,11 @@ const Authenticate = ({ token, user, setError, setToken, setUser, setPassword })
         "Authorization": `Bearer ${token}`
       }
     })
-    const jsonData = await res.json()
-    if (jsonData.success) {
-      setIsSignedIn(true)
+    const authenticationResponse = await res.json()
+    if (authenticationResponse.success) {
+      setWelcome(authenticationResponse)
+      setTimeout(() => setIsSignedIn(true), 2500)
+
     } else {
       setUser("")
       setPassword("")
@@ -33,12 +36,19 @@ const Authenticate = ({ token, user, setError, setToken, setUser, setPassword })
             setUser={setUser}
             setPassword={setPassword}
             setToken={setToken}
-            user={user} /> :
-          <div className="validate">
-            <h1 className="header">Hello, {user}!</h1>
-            <p>validate your token, and go to your Homepage:</p>
-            <button onClick={() => handleClick()}>Take me home </button>
-          </div>
+            username={welcome.data.username} /> :
+          welcome.success ?
+            <div className="validate">
+              <h1 className="header">Welcome back, {welcome.data.username}!</h1>
+              <button onClick={() => handleClick()}>Take me home </button>
+              <p>{welcome.message}</p>
+              <p>Home Page Loading...</p>
+            </div> :
+            <div className="validate">
+              <h1 className="header">Is that you?</h1>
+              <p>validate your token, and go to your Homepage:</p>
+              <button onClick={() => handleClick()}>Take me home </button>
+            </div>
       }
     </>
   )

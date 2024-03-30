@@ -9,4 +9,5 @@ Token-Auth
 -it includes a logout to clear the user's credentials and send them back to the login screen
 
 Netlify deployment: 
-https://66072d3de4397f13cd6816eb--scintillating-sopapillas-e1acba.netlify.app/
+https://66086d039a3fbbe26b1d4a1b--friendly-arithmetic-aa6193.netlify.app/
+

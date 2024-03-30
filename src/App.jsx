@@ -50,7 +50,6 @@ function App() {
         token ?
           <Authenticate
             token={token}
-            user={user}
             setError={setError}
             setToken={setToken}
             setPassword={setPassword}
